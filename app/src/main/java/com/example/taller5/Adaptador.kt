@@ -3,6 +3,7 @@ package com.example.taller5
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.item_lista.view.*
 
@@ -36,14 +37,26 @@ class Adaptador(private val clickListener: (Int) -> Unit): RecyclerView.Adapter<
 
     }
 
-    class ItemsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    fun getLista():MutableList<String>{
+        return items
+    }
 
+    class ItemsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        private var items: MutableList<String> = mutableListOf()
         fun bind(item: String, click: (Int) -> Unit) = with(itemView) {
             txtTitulo.text = item
 
-            setOnClickListener { click(adapterPosition)}
+            setOnClickListener {
+                click(adapterPosition)
+            }
+
+            setOnLongClickListener {
+                txtTitulo.text = "Modificado"
+                true
+            }
         }
 
     }
 
 }
+
